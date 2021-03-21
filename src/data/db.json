@@ -1,34 +1,46 @@
 {
   "movies": [
     {
-      "id": "1",
+      "id": 1,
       "title": "Forest Gump",
       "date": "Wed 24 Feb 2021",
-      "rating": "4.5"
+      "rating": 9
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Tenet",
       "date": "Tue 1 Sep 2020",
-      "rating": "3"
+      "rating": 7
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Saving Private Ryan",
       "date": "Thurs 25 Feb 2021",
-      "rating": "4.5"
+      "rating": 9
     },
     {
-      "id": "4",
+      "id": 4,
       "title": "Wonder Woman 1984",
       "date": "Fri 1 Jan 2021",
-      "rating": "3"
+      "rating": 6
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Soul",
       "date": "Sat 2 Jan 2021",
-      "rating": "4.5"
+      "rating": 8
+    },
+    {
+      "title": "Shirley",
+      "date": "2021-02-05",
+      "rating": 9,
+      "id": 1614449369515
+    },
+    {
+      "title": "Heavy",
+      "date": "2021-02-26",
+      "rating": 6,
+      "id": 1614449448287
     }
   ]
 }

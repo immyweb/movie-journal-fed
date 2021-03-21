@@ -1,5 +1,24 @@
 .addMovie {
-  width: 800px;
+  width: 900px;
   margin: 0 auto;
-  padding: 100px 0 50px;
+  padding: 50px 0;
+}
+
+.heading {
+  font-size: 40rem;
+  margin-bottom: 25px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.labelText {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.submit {
+  display: block;
 }

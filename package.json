@@ -1,14 +1,37 @@
 {
   "scripts": {
     "build": "webpack --config webpack.prod.config.ts",
+    "dev": "npm-run-all --parallel mockapi start",
+    "mockapi": "json-server --watch src/data/db.json",
     "start": "webpack serve --config webpack.dev.config.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "check-types": "tsc",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "validate": "npm-run-all --parallel check-types check-format lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run check-types && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "*.+(js|json|ts|tsx|css)": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
@@ -20,9 +43,9 @@
     "@babel/preset-typescript": "^7.12.17",
     "@babel/runtime": "^7.12.18",
     "@storybook/addon-actions": "^6.1.19",
-    "@storybook/addon-essentials": "^6.1.19",
+    "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.19",
-    "@storybook/react": "^6.1.19",
+    "@storybook/react": "^6.1.21",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@types/fork-ts-checker-webpack-plugin": "^0.4.5",
@@ -43,9 +66,12 @@
     "eslint-webpack-plugin": "^2.5.2",
     "fork-ts-checker-webpack-plugin": "^6.1.0",
     "html-webpack-plugin": "^5.2.0",
+    "husky": "^5.1.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
     "mini-css-extract-plugin": "^1.3.8",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "style-loader": "^2.0.0",
     "ts-node": "^9.1.1",
@@ -55,11 +81,9 @@
     "webpack-dev-server": "^3.11.2"
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest-setup.ts"
-    ],
+    "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
     "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy",
+      "\\.(css)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif)$": "<rootDir>/src/__mocks__/fileMock.ts"
     }
   },

@@ -1,0 +1,26 @@
+.moviesList {
+  width: 900px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.heading {
+  font-size: 40rem;
+  margin-bottom: 25px;
+}
+
+.movieContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie {
+  width: 300px;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.movieTitle {
+  font-size: 20rem;
+  font-weight: bold;
+}

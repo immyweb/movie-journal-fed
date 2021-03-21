@@ -17,7 +17,8 @@ export const MoviesList: React.FC = () => {
   }, []);
 
   const renderMovies = () => {
-    return movieData.map(movie => {
+    return movieData.map(movie
+      => {
       const { title, date, rating } = mov1e;
       return (
         <li

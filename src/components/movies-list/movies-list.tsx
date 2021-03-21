@@ -17,17 +17,12 @@ export const MoviesList: React.FC = () => {
   }, []);
 
   const renderMovies = () => {
-    return movieData.map(movie
-      => {
-      const { title, date, rating } = mov1e;
+    return movieData.map(movie => {
+      const { title, date, rating } = movie;
       return (
-        <li
-              className={styles.movie} key={title}>
+        <li className={styles.movie} key={title}>
           <h3 className={styles.movieTitle}>{title}</h3>
-          <p>
-            
-            
-                      {date}</p>
+          <p>{date}</p>
           <p>{rating}</p>
         </li>
       );

@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { AddMovie } from './add-movie';
 
-test('Content contains var image', () => {
+test('Content contains correct heading', () => {
   render(<AddMovie />);
-  const baby = screen.getByAltText('baby');
-  expect(baby).toBeInTheDocument();
+  const text = screen.getByText('What did you watch?');
+  expect(text).toBeInTheDocument();
 });

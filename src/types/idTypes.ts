@@ -15,7 +15,7 @@ export interface IMovieIDResult {
   overview: string;
   popularity: number;
   poster_path: null | string;
-  release_date?: Date;
+  release_date?: string;
   title: string;
   video: boolean;
   vote_average: number;

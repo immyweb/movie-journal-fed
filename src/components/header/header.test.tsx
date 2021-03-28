@@ -4,6 +4,6 @@ import Header from './header';
 
 test('Header contains correct text', () => {
   render(<Header />);
-  const text = screen.getByText('My React and TypeScript App');
+  const text = screen.getByText('Movie Journal');
   expect(text).toBeInTheDocument();
 });

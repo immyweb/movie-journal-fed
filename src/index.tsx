@@ -12,9 +12,9 @@ import { MoviesList } from './components/movies-list/movies-list';
 ReactDOM.render(
   <React.StrictMode>
     <Header />
+    <SearchMovie />
     {/* <AddMovie /> */}
     {/* <MovieDetail /> */}
-    <SearchMovie />
     <MoviesList />
   </React.StrictMode>,
   document.getElementById('root'),

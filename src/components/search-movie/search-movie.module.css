@@ -1,0 +1,74 @@
+.searchMovie {
+  width: 900px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.heading {
+  font-size: 40rem;
+  margin-bottom: 25px;
+}
+
+.formContainer {
+  display: flex;
+  position: relative;
+}
+
+.labelText {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.input {
+  padding: 10px 15px;
+  width: 500px;
+}
+
+.submit {
+  display: inline-block;
+  border: 1px solid white;
+  padding: 10px 15px;
+}
+
+.dropdown {
+  display: block;
+  position: absolute;
+  top: 40px;
+  left: 42px;
+  border: 1px solid white;
+  background: #2e2e2e;
+  width: 500px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+
+.poster {
+  height: 100px;
+}
+
+.info {
+  padding: 15px;
+  flex-grow: 2;
+}
+
+.title {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-size: 0.8em;
+}
+
+.select {
+  padding: 15px;
+  border-left: 1px solid white;
+}
+
+.select:hover {
+  background: #4b4b4b;
+}

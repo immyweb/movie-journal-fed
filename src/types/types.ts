@@ -1,18 +1,17 @@
-export type IMovieListItem = {
+export interface IMovieListItem {
   id: number;
   title: string;
-  date: string;
+  dateWatched: string;
   rating: number;
-};
+  review: string;
+  like: boolean;
+  posterImg: null | string;
+  releaseDate?: string;
+}
 
-// export type IMovieDetail = {
-//   id: number;
-//   title: string;
-//   image: string;
-//   desc: string;
-//   releaseDate: string;
-//   runtime: number;
-//   genre: string[];
-//   director: string;
-//   cast: string[];
-// }
+export interface IResult {
+  title: string;
+  id: number;
+  posterImg: null | string;
+  releaseDate?: string;
+}

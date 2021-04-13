@@ -1,0 +1,35 @@
+.movieDetail {
+  width: 900px;
+  margin: 40px auto 0;
+}
+
+.detailInfo {
+  display: flex;
+}
+
+.detailContent {
+  flex-grow: 2;
+}
+
+.detailImage {
+  margin-right: 25px;
+}
+
+.detailTitle {
+  font-size: 30rem;
+  margin-bottom: 15px;
+}
+
+.releaseDate {
+  font-size: 15rem;
+}
+
+.detailMeta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.detailHeading {
+  font-size: 16rem;
+  font-weight: bold;
+}

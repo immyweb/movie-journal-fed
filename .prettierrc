@@ -24,6 +24,10 @@
     {
       "files": ["*.css"],
       "options": {"parser": "css" }
+    },
+    {
+      "files": ["*.html"],
+      "options": {"parser": "html" }
     }
   ]
 }

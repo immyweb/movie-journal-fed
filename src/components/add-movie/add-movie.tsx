@@ -1,62 +1,104 @@
 import React, { useState } from 'react';
 
-import { postMovie } from '../../adapters/postMovie';
+import { postMovie } from '../../adapters/movies-client';
+
+import requests from '../../config/requests';
+import { parseYear } from '../../utils/parseYear';
+import { IResult, IMovieListItem } from '../../types/types';
 
 import styles from './add-movie.module.css';
 
-const url = 'http://localhost:3000/movies';
-
-export const AddMovie: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [rating, setRating] = useState('');
+export const AddMovie = ({
+  title,
+  id,
+  posterImg,
+  releaseDate,
+}: IResult): JSX.Element => {
+  const [dateWatched, setDateWatched] = useState<string>();
+  const [review, setReview] = useState<string>('');
+  const [rating, setRating] = useState<string>('');
+  const [like, setLike] = useState<boolean>(false);
+  const [postSucess, setPostSucess] = useState<boolean>(false);
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    const movie = {
-      title,
-      date,
-      rating: parseInt(rating),
-      id: Date.now(),
-    };
-
-    postMovie(url, movie).then(res => console.log(res));
+    if (dateWatched && review && rating) {
+      const movie: IMovieListItem = {
+        title,
+        id,
+        dateWatched,
+        posterImg,
+        review,
+        releaseDate,
+        rating: parseInt(rating),
+        like,
+      };
+      postMovie(movie).then(() => {
+        setPostSucess(true);
+      });
+    }
   };
 
   return (
     <section className={styles.addMovie}>
-      <form onSubmit={handleSubmit}>
-        <h3 className={styles.heading}>What did you watch?</h3>
-        <label htmlFor="title" className={styles.label}>
-          <span className={styles.labelText}>Title</span>
-          <input
-            type="text"
-            value={title}
-            name="title"
-            onChange={e => setTitle(e.target.value)}
-          />
-        </label>
-        <label htmlFor="date" className={styles.label}>
-          <span className={styles.labelText}>Date</span>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div>
+          {posterImg && (
+            <img src={`${requests.imgUrl}${posterImg}`} alt={title} />
+          )}
+        </div>
+        <div className={styles.content}>
+          <h3 className={styles.subHeading}>I watched...</h3>
+          <h2 className={styles.heading}>
+            {title}{' '}
+            <span className={styles.date}>({parseYear(releaseDate)})</span>
+          </h2>
+          <label htmlFor="date" className={styles.label}>
+            Date watched
+          </label>
           <input
             type="date"
             name="date"
-            value="2021-02-27"
-            onChange={e => setDate(e.target.value)}
+            id="date"
+            value={'2021-04-08'}
+            onChange={e => setDateWatched(e.target.value)}
+            required
           />
-        </label>
-        <label htmlFor="rating" className={styles.label}>
-          <span className={styles.labelText}>Rating</span>
+          <label htmlFor="review" className={styles.label}>
+            Review
+          </label>
+          <textarea
+            name="review"
+            id="review"
+            placeholder={`Add a review`}
+            onChange={e => setReview(e.target.value)}
+            required
+          />
+          <label htmlFor="rating" className={styles.label}>
+            Rating
+          </label>
           <input
             type="number"
             name="rating"
+            id="rating"
             min="1"
             max="10"
             onChange={e => setRating(e.target.value)}
+            required
           />
-        </label>
-        <input type="submit" value="submit" className={styles.submit} />
+          <label htmlFor="like" className={styles.label}>
+            Like
+          </label>
+          <input
+            type="checkbox"
+            name="like"
+            id="like"
+            onChange={e => setLike(e.target.checked)}
+          />
+          <input type="submit" value="submit" className={styles.submit} />
+          {postSucess && <p>Thank you for your submission</p>}
+        </div>
       </form>
     </section>
   );

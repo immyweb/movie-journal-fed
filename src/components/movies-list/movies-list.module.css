@@ -10,14 +10,21 @@
 }
 
 .movieContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 15px;
 }
 
 .movie {
-  width: 300px;
-  display: block;
   margin-bottom: 50px;
+}
+
+.movieLink {
+  display: block;
+}
+
+.poster {
+  width: 100%;
 }
 
 .movieTitle {

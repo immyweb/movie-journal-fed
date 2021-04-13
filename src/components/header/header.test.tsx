@@ -1,9 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 import Header from './header';
 
-test('Header contains correct text', () => {
-  render(<Header />);
-  const text = screen.getByText('Movie Journal');
-  expect(text).toBeInTheDocument();
+test('Header renders correct heading', () => {
+  window.history.pushState({}, 'Test page', '/');
+  const { getByRole } = render(
+    <BrowserRouter>
+      <Header />
+    </BrowserRouter>,
+  );
+  expect(getByRole('heading')).toHaveTextContent(/Movie Journal/i);
 });

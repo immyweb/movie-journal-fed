@@ -1,4 +1,5 @@
-@import "base/reset.css";
+@import 'base/reset.css';
+@import 'base/typography.css';
 
 body {
   background: #1a1a1a;

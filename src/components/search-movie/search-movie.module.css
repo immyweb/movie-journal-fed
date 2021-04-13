@@ -30,6 +30,13 @@
   padding: 10px 15px;
 }
 
+.noResult {
+  display: block;
+  position: absolute;
+  top: 53px;
+  left: 42px;
+}
+
 .dropdown {
   display: block;
   position: absolute;
@@ -44,6 +51,11 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
+}
+
+.item:hover {
+  background: #4b4b4b;
+  cursor: pointer;
 }
 
 .poster {
@@ -67,8 +79,4 @@
 .select {
   padding: 15px;
   border-left: 1px solid white;
-}
-
-.select:hover {
-  background: #4b4b4b;
 }

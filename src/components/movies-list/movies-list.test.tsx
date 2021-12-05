@@ -12,7 +12,6 @@ test('MoviesList renders list of movies', async () => {
       <MoviesList />
     </Router>,
   );
-
   expect(getByText(/your movies/i)).toBeInTheDocument();
   expect(await findAllByRole('listitem')).toHaveLength(11);
   expect(await findAllByRole('img')).toHaveLength(11);

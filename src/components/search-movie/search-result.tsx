@@ -11,15 +11,20 @@ interface ISearchResult extends IResult {
 }
 
 const SearchResult = ({
-  id,
+  theMovieDbId,
   posterImg,
   title,
   releaseDate,
   onSelect,
 }: ISearchResult): JSX.Element => {
-  const result = { id, posterImg, title, releaseDate };
+  const result = { theMovieDbId, posterImg, title, releaseDate };
   return (
-    <li key={id} className={styles.item} onClick={() => onSelect(result)}>
+    <li
+      key={theMovieDbId}
+      className={styles.item}
+      data-testid={theMovieDbId}
+      onClick={() => onSelect(result)}
+    >
       <img
         src={`${requests.imgUrl}${posterImg}`}
         alt={title}

@@ -66,11 +66,10 @@ const config: webpack.Configuration = {
   ],
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'build'),
+    static: path.join(__dirname, 'build'),
     historyApiFallback: true,
     port: 4000,
     open: true,
-    hot: true,
   },
 };
 

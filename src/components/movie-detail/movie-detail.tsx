@@ -10,53 +10,53 @@ import { Genre } from '../../types/detailTypes';
 import { Cast } from '../../types/creditTypes';
 import styles from './movie-detail.module.css';
 
-type IDetail = {
-  title: string;
-  poster_path: string;
-  release_date: string;
+type IMovieMeta = {
   date_watched: string;
   like: boolean;
   rating: number;
   review: string;
+};
+
+type IDetail = {
+  title: string;
+  poster_path: string;
+  release_date: string;
   director: string;
 };
 
 type IMovieDetail = {
-  id: number;
+  id: string;
 };
 
 const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
+  const [movieMeta, setMovieMeta] = useState<IMovieMeta>();
   const [movieDetail, setMovieDetail] = useState<IDetail>();
   const [movieGenres, setMovieGenres] = useState<Genre[]>();
   const [movieCast, setMovieCast] = useState<Cast[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const getDirector = (crew: Cast[]): string => {
+  function getDirector(crew: Cast[]): string {
     const result = crew.filter(obj => {
       return obj.job === 'Director';
     });
     return result[0].name;
-  };
+  }
 
-  const getCast = (cast: Cast[], number: number): Cast[] => {
+  function getCast(cast: Cast[], number: number): Cast[] {
     const data: Cast[] = [];
     for (let i = 0; i < number; i++) {
       data.push(cast[i]);
     }
     return data;
-  };
+  }
 
   useEffect(() => {
-    Promise.all([getMovieDetail(id), getMovieCredits(id), getMovie(id)]).then(
-      responses => {
+    function fetchMovieDetails(id: number) {
+      Promise.all([getMovieDetail(id), getMovieCredits(id)]).then(responses => {
         const movieInfo = {
           title: responses[0].title,
           poster_path: responses[0].poster_path,
           release_date: responses[0].release_date,
-          date_watched: responses[2].dateWatched,
-          like: responses[2].like,
-          rating: responses[2].rating,
-          review: responses[2].review,
           director: getDirector(responses[1].crew),
         };
         setMovieDetail(movieInfo);
@@ -68,21 +68,37 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
         setMovieCast(cast);
 
         setIsLoading(false);
-      },
-    );
+      });
+    }
+
+    function getMovieInfo(id: string) {
+      getMovie(id).then(data => {
+        const { dateWatched, like, rating, review, theMovieDbId } = data.movie;
+        const movieMeta = {
+          date_watched: dateWatched,
+          like,
+          rating,
+          review,
+        };
+        setMovieMeta(movieMeta);
+        fetchMovieDetails(theMovieDbId);
+      });
+    }
+
+    getMovieInfo(id);
   }, [id]);
 
-  const renderGenres = () => {
+  function renderGenres() {
     return movieGenres?.map(genre => {
       return <li key={genre.name}>{genre.name}</li>;
     });
-  };
+  }
 
-  const renderCast = () => {
+  function renderCast() {
     return movieCast?.map(cast => {
       return <li key={cast.name}>{cast.name}</li>;
     });
-  };
+  }
 
   return isLoading === false ? (
     <section className={styles.movieDetail}>
@@ -95,16 +111,16 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
         <div className={styles.detailContent}>
           <h2 className={styles.detailTitle}>
             {movieDetail?.title}{' '}
-            <span className={styles.releaseDate}>
+            <span className={styles.releaseDate} data-testid="release-date">
               {parseYear(movieDetail?.release_date)}
             </span>
           </h2>
-          <p>{`${movieDetail?.rating}/10`}</p>
-          <p>{`Watched: ${movieDetail?.date_watched}`}</p>
-          <p>{movieDetail?.review}</p>
-          <p>{movieDetail?.like ? 'Liked' : null}</p>
+          <p data-testid="rating">{`${movieMeta?.rating}/10`}</p>
+          <p data-testid="date-watched">{`Watched: ${movieMeta?.date_watched}`}</p>
+          <p data-testid="review">{movieMeta?.review}</p>
+          <p data-testid="liked">{movieMeta?.like ? 'Liked' : null}</p>
           <h3 className={styles.detailHeading}>Director</h3>
-          <p>{movieDetail?.director}</p>
+          <p data-testid="director">{movieDetail?.director}</p>
           <div className={styles.detailMeta}>
             <div>
               <h3 className={styles.detailHeading}>Cast</h3>

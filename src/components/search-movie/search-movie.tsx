@@ -57,7 +57,13 @@ const SearchMovie = (): JSX.Element => {
 
   const renderResults = (results: IResult[]) => {
     return results.map(result => {
-      return <SearchResult {...result} onSelect={onSelect} key={result.id} />;
+      return (
+        <SearchResult
+          {...result}
+          onSelect={onSelect}
+          key={result.theMovieDbId}
+        />
+      );
     });
   };
 
@@ -80,10 +86,14 @@ const SearchMovie = (): JSX.Element => {
           <button className={styles.submit}>Find</button>
         </form>
         {results.length > 0 && title.length > 0 && (
-          <ul className={styles.dropdown}>{renderResults(results)}</ul>
+          <ul className={styles.dropdown} data-testid="search-results">
+            {renderResults(results)}
+          </ul>
         )}
         {noResult && (
-          <p className={styles.noResult}>No results found. Please try again.</p>
+          <p className={styles.noResult} data-testid="no-results">
+            No results found. Please try again.
+          </p>
         )}
         {showModal && selected && (
           <Modal

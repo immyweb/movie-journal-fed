@@ -6,7 +6,7 @@ import { axe } from 'jest-axe';
 import { AddMovie } from './add-movie';
 
 const result = {
-  id: 464052,
+  theMovieDbId: 464052,
   posterImg: '/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg',
   title: 'Wonder Woman 1984',
   releaseDate: '2020-12-16',

@@ -29,7 +29,7 @@ const MoviesList = (): JSX.Element => {
 
   useEffect(() => {
     getMovies().then(data => {
-      const sortedDate = sortByDateWatched(data);
+      const sortedDate = sortByDateWatched(data.movies);
       if (mountedRef.current) {
         setMovieData(sortedDate);
       }
@@ -38,10 +38,10 @@ const MoviesList = (): JSX.Element => {
 
   const renderMovies = () => {
     return movieData.map(movie => {
-      const { title, dateWatched, rating, posterImg, id } = movie;
+      const { title, dateWatched, rating, posterImg, _id } = movie;
       return (
         <li className={styles.movie} key={title}>
-          <Link to={`/detail/${id}`} className={styles.movieLink}>
+          <Link to={`/detail/${_id}`} className={styles.movieLink}>
             <img
               src={`${requests.imgUrl}${posterImg}`}
               alt={title}

@@ -7,6 +7,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Movie Journal</title>
+    <script>
+      if (window.Cypress) {
+        window.__REACT_DEVTOOLS_GLOBAL_HOOK__ =
+          window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+      }
+    </script>
   </head>
 
   <body>

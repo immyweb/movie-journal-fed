@@ -10,17 +10,21 @@ import {
 
 test('Movie Detail shows image, title, rating, review, watched, director, cast and genres', async () => {
   const { findByText, findByAltText } = render(
-    <MovieDetail id={movieDetailResponse.id} />,
+    <MovieDetail id={movieDetailResponse.movie._id} />,
   );
 
-  expect(await findByText(movieDetailResponse.title)).toBeInTheDocument();
-  expect(await findByAltText(movieDetailResponse.title)).toBeInTheDocument();
+  expect(await findByText(movieDetailResponse.movie.title)).toBeInTheDocument();
   expect(
-    await findByText(`${movieDetailResponse.rating}/10`),
+    await findByAltText(movieDetailResponse.movie.title),
   ).toBeInTheDocument();
-  expect(await findByText(movieDetailResponse.review)).toBeInTheDocument();
   expect(
-    await findByText(`Watched: ${movieDetailResponse.dateWatched}`),
+    await findByText(`${movieDetailResponse.movie.rating}/10`),
+  ).toBeInTheDocument();
+  expect(
+    await findByText(movieDetailResponse.movie.review),
+  ).toBeInTheDocument();
+  expect(
+    await findByText(`Watched: ${movieDetailResponse.movie.dateWatched}`),
   ).toBeInTheDocument();
 
   // Director

@@ -5,9 +5,9 @@ import MovieDetail from '../components/movie-detail/movie-detail';
 
 const Detail = (): JSX.Element => {
   const match = useRouteMatch();
-  const id = parseInt(match.url.split('/')[2]);
+  const id = match.url.split('/');
 
-  return <MovieDetail id={id} />;
+  return <MovieDetail id={id[2]} />;
 };
 
 export default Detail;

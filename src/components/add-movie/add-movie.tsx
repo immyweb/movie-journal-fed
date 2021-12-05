@@ -10,7 +10,7 @@ import styles from './add-movie.module.css';
 
 export const AddMovie = ({
   title,
-  id,
+  theMovieDbId,
   posterImg,
   releaseDate,
 }: IResult): JSX.Element => {
@@ -20,13 +20,13 @@ export const AddMovie = ({
   const [like, setLike] = useState<boolean>(false);
   const [postSucess, setPostSucess] = useState<boolean>(false);
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (dateWatched && review && rating) {
       const movie: IMovieListItem = {
         title,
-        id,
+        theMovieDbId,
         dateWatched,
         posterImg,
         review,
@@ -38,7 +38,7 @@ export const AddMovie = ({
         setPostSucess(true);
       });
     }
-  };
+  }
 
   return (
     <section className={styles.addMovie}>
@@ -97,7 +97,9 @@ export const AddMovie = ({
             onChange={e => setLike(e.target.checked)}
           />
           <input type="submit" value="submit" className={styles.submit} />
-          {postSucess && <p>Thank you for your submission</p>}
+          {postSucess && (
+            <p data-testid="post-success">Thank you for your submission</p>
+          )}
         </div>
       </form>
     </section>

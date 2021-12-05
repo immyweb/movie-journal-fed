@@ -5,6 +5,8 @@
 
 # testing
 /coverage
+/cypress/videos
+/cypress/screenshots
 
 # production
 /build
@@ -18,5 +20,3 @@
 
 npm-debug.log*
 
-# Remove this
-/src/stories

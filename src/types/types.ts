@@ -1,5 +1,6 @@
 export interface IMovieListItem {
-  id: number;
+  _id?: string;
+  theMovieDbId: number;
   title: string;
   dateWatched: string;
   rating: number;
@@ -11,7 +12,15 @@ export interface IMovieListItem {
 
 export interface IResult {
   title: string;
-  id: number;
+  theMovieDbId: number;
   posterImg: null | string;
   releaseDate?: string;
+}
+
+export interface IMovie {
+  movie: IMovieListItem;
+}
+
+export interface IMovies {
+  movies: IMovieListItem[];
 }

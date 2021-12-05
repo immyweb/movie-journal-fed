@@ -6,7 +6,7 @@ export const filterResults = (data: Result[]): IResult[] => {
   for (let i = 0; i < 3; i++) {
     const item = {
       title: data[i].title,
-      id: data[i].id,
+      theMovieDbId: data[i].id,
       posterImg: data[i].poster_path,
       releaseDate: data[i].release_date,
     };

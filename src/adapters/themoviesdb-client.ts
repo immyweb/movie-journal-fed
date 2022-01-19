@@ -6,19 +6,19 @@ import { IMovieCredits } from '../types/creditTypes';
 import { ISearchTitleResults } from '../types/searchTitleResults';
 
 function searchMovie(title: string): Promise<ISearchTitleResults> {
-  return client(`${requests.baseURL}${requests.fetchId}${title}`, {
+  return client<ISearchTitleResults>(`${requests.baseURL}${requests.fetchId}${title}`, {
     method: 'GET',
   });
 }
 
 function getMovieDetail(id: number): Promise<IMovieDetailApi> {
-  return client(`${requests.baseURL}movie/${id}${requests.fetchDetail}`, {
+  return client<IMovieDetailApi>(`${requests.baseURL}movie/${id}${requests.fetchDetail}`, {
     method: 'GET',
   });
 }
 
 function getMovieCredits(id: number): Promise<IMovieCredits> {
-  return client(`${requests.baseURL}movie/${id}${requests.fetchCredits}`, {
+  return client<IMovieCredits>(`${requests.baseURL}movie/${id}${requests.fetchCredits}`, {
     method: 'GET',
   });
 }

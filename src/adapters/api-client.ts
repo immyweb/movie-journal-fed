@@ -1,13 +1,18 @@
+import { IMovieListItem } from '../types/types';
+
 type ApiRequest = {
   method: string;
-  body?: any;
+  body?: IMovieListItem;
 };
 
-export function client(
+export function client<TResponse>(
   endpoint: string,
   { method, body }: ApiRequest,
-): Promise<any> {
-  const headers = { 'Content-Type': 'application/json; charset=UTF-8' };
+): Promise<TResponse> {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Bearer ${process.env.TOKEN}`,
+  };
 
   const config = {
     method,

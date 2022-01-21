@@ -1,0 +1,37 @@
+.heading {
+  font-size: 40rem;
+  margin-bottom: 15px;
+}
+
+.date {
+  font-size: 18rem;
+}
+
+.subHeading {
+  font-size: 20rem;
+  margin-bottom: 15px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  flex-grow: 1;
+  padding-left: 15px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.labelText {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.submit {
+  display: block;
+}

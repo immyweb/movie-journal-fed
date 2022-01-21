@@ -1,8 +1,7 @@
 {
   "scripts": {
     "build": "webpack --config webpack.prod.config.ts",
-    "dev": "npm-run-all --parallel mockapi start",
-    "mockapi": "json-server --watch src/data/db.json",
+    "dev": "npm-run-all --parallel start",
     "start": "webpack serve --config webpack.dev.config.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -11,8 +10,8 @@
     "cy:open": "cypress open",
     "test:e2e": "test:e2e:dev",
     "pretest:e2e:run": "npm run build",
-    "test:e2e:run": "start-test mockapi 3000 build 4000 cy:run",
-    "test:e2e:dev": "start-test mockapi 3000 start 4000 cy:open",
+    "test:e2e:run": "start-test build 4000 cy:run",
+    "test:e2e:dev": "start-test start 4000 cy:open",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "check-types": "tsc",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx|css|html|md)\"",
@@ -86,9 +85,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix"
-    ],
+    "*.js": ["eslint --fix"],
     "*.+(js|json|ts|tsx|css|html|md)": [
       "prettier",
       "jest --findRelatedTests",
@@ -96,16 +93,12 @@
     ]
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest-setup.ts"
-    ],
+    "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif)$": "<rootDir>/src/__mocks__/fileMock.ts"
     },
-    "collectCoverageFrom": [
-      "**/src/**/*.{ts,tsx,js}"
-    ],
+    "collectCoverageFrom": ["**/src/**/*.{ts,tsx,js}"],
     "resetMocks": true,
     "testEnvironment": "jsdom"
   },

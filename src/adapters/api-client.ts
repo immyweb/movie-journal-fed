@@ -10,7 +10,7 @@ export function client<TResponse>(
   { method, body }: ApiRequest,
 ): Promise<TResponse> {
   const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${process.env.TOKEN}`,
   };
 

@@ -1,0 +1,17 @@
+.btnHolder {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.editBtn,
+.deleteBtn {
+  padding: 5px;
+  border: 1px solid #ccc;
+  width: 70%;
+}
+
+.editBtn:hover,
+.deleteBtn:hover {
+  background-color: #ccc;
+  color: black;
+}

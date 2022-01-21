@@ -5,6 +5,9 @@ import {
   getMovieCredits,
 } from '../../adapters/themoviesdb-client';
 import { getMovie } from '../../adapters/movies-client';
+import Modal from '../modal/modal';
+import { EditMovie } from '../edit-movie/edit-movie';
+import { DeleteMovie } from '../delete-movie/delete-movie';
 import { parseYear } from '../../utils/parseYear';
 import { Genre } from '../../types/detailTypes';
 import { Cast } from '../../types/creditTypes';
@@ -15,6 +18,8 @@ type IMovieMeta = {
   like: boolean;
   rating: number;
   review: string;
+  id: string;
+  theMovieDbId: number;
 };
 
 type IDetail = {
@@ -34,24 +39,26 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
   const [movieGenres, setMovieGenres] = useState<Genre[]>();
   const [movieCast, setMovieCast] = useState<Cast[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
-  function getDirector(crew: Cast[]): string {
+  const getDirector = (crew: Cast[]): string => {
     const result = crew.filter(obj => {
       return obj.job === 'Director';
     });
     return result[0].name;
-  }
+  };
 
-  function getCast(cast: Cast[], number: number): Cast[] {
+  const getCast = (cast: Cast[], number: number): Cast[] => {
     const data: Cast[] = [];
     for (let i = 0; i < number; i++) {
       data.push(cast[i]);
     }
     return data;
-  }
+  };
 
   useEffect(() => {
-    function fetchMovieDetails(id: number) {
+    const fetchMovieDetails = (id: number) => {
       Promise.all([getMovieDetail(id), getMovieCredits(id)]).then(responses => {
         const movieInfo = {
           title: responses[0].title,
@@ -69,9 +76,9 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
 
         setIsLoading(false);
       });
-    }
+    };
 
-    function getMovieInfo(id: string) {
+    const getMovieInfo = (id: string) => {
       getMovie(id).then(data => {
         const { dateWatched, like, rating, review, theMovieDbId } = data.movie;
         const movieMeta = {
@@ -79,26 +86,41 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
           like,
           rating,
           review,
+          theMovieDbId,
+          id,
         };
         setMovieMeta(movieMeta);
         fetchMovieDetails(theMovieDbId);
       });
-    }
+    };
 
     getMovieInfo(id);
   }, [id]);
 
-  function renderGenres() {
+  const renderGenres = () => {
     return movieGenres?.map(genre => {
       return <li key={genre.name}>{genre.name}</li>;
     });
-  }
+  };
 
-  function renderCast() {
+  const renderCast = () => {
     return movieCast?.map(cast => {
       return <li key={cast.name}>{cast.name}</li>;
     });
-  }
+  };
+
+  const editMovie = () => {
+    setShowEditModal(true);
+  };
+
+  const deleteMovie = () => {
+    setShowDeleteModal(true);
+  };
+
+  const onCloseModal = () => {
+    setShowEditModal(false);
+    setShowDeleteModal(false);
+  };
 
   return isLoading === false ? (
     <section className={styles.movieDetail}>
@@ -131,8 +153,37 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
               <ul>{renderGenres()}</ul>
             </div>
           </div>
+          <div className={styles.btnHolder}>
+            <button className={styles.editBtn} onClick={editMovie}>
+              Edit
+            </button>
+            <button className={styles.deleteBtn} onClick={deleteMovie}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
+      {showEditModal && movieDetail && movieMeta && (
+        <Modal
+          content={
+            <EditMovie
+              {...movieMeta}
+              title={movieDetail?.title}
+              posterPath={movieDetail?.poster_path}
+              releaseDate={movieDetail?.release_date}
+            />
+          }
+          onCloseModal={onCloseModal}
+        />
+      )}
+      {showDeleteModal && movieMeta && (
+        <Modal
+          content={
+            <DeleteMovie onCloseModal={onCloseModal} id={movieMeta?.id} />
+          }
+          onCloseModal={onCloseModal}
+        />
+      )}
     </section>
   ) : (
     <section className={styles.movieDetail}>Loading...</section>

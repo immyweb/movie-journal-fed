@@ -20,7 +20,7 @@ export const AddMovie = ({
   const [like, setLike] = useState<boolean>(false);
   const [postSucess, setPostSucess] = useState<boolean>(false);
 
-  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (dateWatched && review && rating) {
@@ -38,7 +38,7 @@ export const AddMovie = ({
         setPostSucess(true);
       });
     }
-  }
+  };
 
   return (
     <section className={styles.addMovie}>

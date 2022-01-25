@@ -41,6 +41,7 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [movieEdited, setMovieEdited] = useState<boolean>(false);
 
   const getDirector = (crew: Cast[]): string => {
     const result = crew.filter(obj => {
@@ -95,7 +96,7 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
     };
 
     getMovieInfo(id);
-  }, [id]);
+  }, [id, movieEdited]);
 
   const renderGenres = () => {
     return movieGenres?.map(genre => {
@@ -110,6 +111,7 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
   };
 
   const editMovie = () => {
+    setMovieEdited(false);
     setShowEditModal(true);
   };
 
@@ -153,6 +155,7 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
               <ul>{renderGenres()}</ul>
             </div>
           </div>
+          {movieEdited && <p>Movie updated</p>}
           <div className={styles.btnHolder}>
             <button className={styles.editBtn} onClick={editMovie}>
               Edit
@@ -171,6 +174,8 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
               title={movieDetail?.title}
               posterPath={movieDetail?.poster_path}
               releaseDate={movieDetail?.release_date}
+              setMovieEdited={setMovieEdited}
+              onCloseModal={onCloseModal}
             />
           }
           onCloseModal={onCloseModal}

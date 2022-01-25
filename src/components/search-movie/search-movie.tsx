@@ -34,11 +34,9 @@ const SearchMovie = (): JSX.Element => {
     searchMovie(title).then(response => {
       if (response.results.length) {
         const filtered = filterResults(response.results);
-        // console.log(filtered);
         setNoResult(false);
         setResults(filtered);
       } else {
-        // console.log('no results found');
         if (mountedRef.current) {
           setNoResult(true);
         }
@@ -48,6 +46,7 @@ const SearchMovie = (): JSX.Element => {
 
   const onSelect = (result: IResult) => {
     setSelected(result);
+    setResults([]);
     setShowModal(true);
   };
 
@@ -97,7 +96,7 @@ const SearchMovie = (): JSX.Element => {
         )}
         {showModal && selected && (
           <Modal
-            content={<AddMovie {...selected} />}
+            content={<AddMovie {...selected} onCloseModal={onCloseModal} />}
             onCloseModal={onCloseModal}
           />
         )}

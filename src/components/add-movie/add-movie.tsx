@@ -8,36 +8,48 @@ import { IResult, IMovieListItem } from '../../types/types';
 
 import styles from './add-movie.module.css';
 
+interface FormElements extends HTMLFormControlsCollection {
+  date: HTMLInputElement;
+  review: HTMLInputElement;
+  rating: HTMLInputElement;
+  like: HTMLInputElement;
+}
+
+interface AddMovieFormElement extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
+interface IAddMovie extends IResult {
+  onCloseModal: () => void;
+}
+
 export const AddMovie = ({
   title,
   theMovieDbId,
   posterImg,
   releaseDate,
-}: IResult): JSX.Element => {
-  const [dateWatched, setDateWatched] = useState<string>();
-  const [review, setReview] = useState<string>('');
-  const [rating, setRating] = useState<string>('');
-  const [like, setLike] = useState<boolean>(false);
+  onCloseModal,
+}: IAddMovie): JSX.Element => {
   const [postSucess, setPostSucess] = useState<boolean>(false);
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: React.FormEvent<AddMovieFormElement>) => {
     evt.preventDefault();
 
-    if (dateWatched && review && rating) {
-      const movie: IMovieListItem = {
-        title,
-        theMovieDbId,
-        dateWatched,
-        posterImg,
-        review,
-        releaseDate,
-        rating: parseInt(rating),
-        like,
-      };
-      postMovie(movie).then(() => {
-        setPostSucess(true);
-      });
-    }
+    const { date, review, rating, like } = evt.currentTarget.elements;
+    const movie: IMovieListItem = {
+      title,
+      theMovieDbId,
+      dateWatched: date.value,
+      posterImg,
+      review: review.value,
+      releaseDate,
+      rating: parseInt(rating.value),
+      like: like.checked,
+    };
+    postMovie(movie).then(() => {
+      setPostSucess(true);
+      onCloseModal();
+    });
   };
 
   return (
@@ -61,8 +73,7 @@ export const AddMovie = ({
             type="date"
             name="date"
             id="date"
-            value={'2021-04-08'}
-            onChange={e => setDateWatched(e.target.value)}
+            defaultValue={'2021-04-08'}
             required
           />
           <label htmlFor="review" className={styles.label}>
@@ -72,7 +83,6 @@ export const AddMovie = ({
             name="review"
             id="review"
             placeholder={`Add a review`}
-            onChange={e => setReview(e.target.value)}
             required
           />
           <label htmlFor="rating" className={styles.label}>
@@ -84,18 +94,12 @@ export const AddMovie = ({
             id="rating"
             min="1"
             max="10"
-            onChange={e => setRating(e.target.value)}
             required
           />
           <label htmlFor="like" className={styles.label}>
             Like
           </label>
-          <input
-            type="checkbox"
-            name="like"
-            id="like"
-            onChange={e => setLike(e.target.checked)}
-          />
+          <input type="checkbox" name="like" id="like" />
           <input type="submit" value="submit" className={styles.submit} />
           {postSucess && (
             <p data-testid="post-success">Thank you for your submission</p>

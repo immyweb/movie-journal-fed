@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 
 import { updateMovie } from '../../adapters/movies-client';
 import requests from '../../config/requests';
@@ -17,6 +17,8 @@ type IEditMovie = {
   title: string;
   posterPath: string;
   releaseDate: string;
+  onCloseModal: () => void;
+  setMovieEdited: Dispatch<SetStateAction<boolean>>;
 };
 
 interface FormElements extends HTMLFormControlsCollection {
@@ -26,7 +28,7 @@ interface FormElements extends HTMLFormControlsCollection {
   like: HTMLInputElement;
 }
 
-interface editMovieFormElement extends HTMLFormElement {
+interface EditMovieFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
@@ -40,10 +42,12 @@ export const EditMovie = ({
   title,
   posterPath,
   releaseDate,
+  setMovieEdited,
+  onCloseModal,
 }: IEditMovie): JSX.Element => {
   const [postSucess, setPostSucess] = useState<boolean>(false);
 
-  const handleSubmit = (evt: React.FormEvent<editMovieFormElement>) => {
+  const handleSubmit = (evt: React.FormEvent<EditMovieFormElement>) => {
     evt.preventDefault();
 
     const { date, review, rating, like } = evt.currentTarget.elements;
@@ -60,6 +64,8 @@ export const EditMovie = ({
 
     updateMovie(id, movie).then(() => {
       setPostSucess(true);
+      setMovieEdited(true);
+      onCloseModal();
     });
   };
 

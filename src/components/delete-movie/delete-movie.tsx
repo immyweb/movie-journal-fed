@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { removeMovie } from '../../adapters/movies-client';
 import styles from './delete-movie.module.css';
@@ -10,9 +11,12 @@ export const DeleteMovie = ({
   onCloseModal: () => void;
   id: string;
 }): JSX.Element => {
+  const history = useHistory();
+
   const onDeleteMovie = () => {
     removeMovie(id).then(() => {
       onCloseModal();
+      history.push('/');
     });
   };
 

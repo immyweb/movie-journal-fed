@@ -31,7 +31,7 @@ const SearchResult = ({
         className={styles.poster}
       />
       <div className={styles.info}>
-        <h4 className={styles.title}>{title}</h4>
+        <h3 className={styles.title}>{title}</h3>
         <p className={styles.date}>({parseYear(releaseDate)})</p>
       </div>
     </li>

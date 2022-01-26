@@ -155,12 +155,20 @@ const MovieDetail = ({ id }: IMovieDetail): JSX.Element => {
               <ul>{renderGenres()}</ul>
             </div>
           </div>
-          {movieEdited && <p>Movie updated</p>}
+          {movieEdited && <p data-testid="update-success">Movie updated</p>}
           <div className={styles.btnHolder}>
-            <button className={styles.editBtn} onClick={editMovie}>
+            <button
+              className={styles.editBtn}
+              onClick={editMovie}
+              data-testid="edit-movie-btn"
+            >
               Edit
             </button>
-            <button className={styles.deleteBtn} onClick={deleteMovie}>
+            <button
+              className={styles.deleteBtn}
+              onClick={deleteMovie}
+              data-testid="delete-movie-btn"
+            >
               Delete
             </button>
           </div>

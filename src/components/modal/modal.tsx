@@ -17,7 +17,12 @@ if (!modalElement) {
 
 const Modal = ({ content, onCloseModal }: IModal): JSX.Element => {
   return createPortal(
-    <section className={styles.modalContainer} data-testid="modal">
+    <section
+      className={styles.modalContainer}
+      data-testid="modal"
+      role="dialog"
+      aria-label="modal"
+    >
       <div className={styles.modalInner}>
         <button
           onClick={onCloseModal}

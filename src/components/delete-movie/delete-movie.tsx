@@ -24,10 +24,18 @@ export const DeleteMovie = ({
     <section>
       <p>Are you sure you want to delete this movie entry?</p>
       <div className={styles.btnHolder}>
-        <button className={styles.editBtn} onClick={onDeleteMovie}>
+        <button
+          className={styles.editBtn}
+          onClick={onDeleteMovie}
+          data-testid="delete-yes"
+        >
           Yes
         </button>
-        <button className={styles.deleteBtn} onClick={onCloseModal}>
+        <button
+          className={styles.deleteBtn}
+          onClick={onCloseModal}
+          data-testid="delete-no"
+        >
           No
         </button>
       </div>

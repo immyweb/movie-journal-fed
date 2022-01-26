@@ -5,7 +5,7 @@ import styles from './header.module.css';
 
 const Header = (): JSX.Element => {
   return (
-    <header className={styles.header}>
+    <header className={styles.header} role="banner">
       <h1 className={styles.heading}>
         <Link to="/">Movie Journal</Link>
       </h1>

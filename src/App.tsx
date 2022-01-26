@@ -10,11 +10,13 @@ const App = (): JSX.Element => {
   return (
     <div className="app">
       <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/detail/:id" component={Detail} />
-        <Route component={NoMatch} />
-      </Switch>
+      <main role="main">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/detail/:id" component={Detail} />
+          <Route component={NoMatch} />
+        </Switch>
+      </main>
     </div>
   );
 };

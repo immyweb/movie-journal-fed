@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
@@ -76,68 +75,65 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
-test('should pass accessibility tests', async () => {
-  const { container } = render(<SearchMovie />);
-  expect(await axe(container)).toHaveNoViolations();
-});
+describe('Search movie component', () => {
+  it('Should display search results in dropdown', async () => {
+    const { getByText, findAllByRole, getByLabelText, queryByRole } = render(
+      <SearchMovie />,
+    );
+    const input = getByLabelText(/title/i);
 
-test('Should display search results in dropdown', async () => {
-  const { getByText, findAllByRole, getByLabelText, queryByRole } = render(
-    <SearchMovie />,
-  );
-  const input = getByLabelText(/title/i);
+    userEvent.type(input, 'godzilla');
+    userEvent.click(getByText(/find/i));
 
-  userEvent.type(input, 'godzilla');
-  userEvent.click(getByText(/find/i));
+    expect(await findAllByRole('listitem')).toHaveLength(3);
+    expect(await findAllByRole('img')).toHaveLength(3);
 
-  expect(await findAllByRole('listitem')).toHaveLength(3);
-  expect(await findAllByRole('img')).toHaveLength(3);
+    userEvent.clear(input);
+    expect(await queryByRole('listitem')).toBeNull();
+    expect(await queryByRole('img')).toBeNull();
+  });
 
-  userEvent.clear(input);
-  expect(await queryByRole('listitem')).toBeNull();
-  expect(await queryByRole('img')).toBeNull();
-});
+  // TODO: Refactor
+  it('Should display no results message when API returns no matches', async () => {
+    server.use(
+      rest.get('https://api.themoviedb.org/3/search/movie', (req, res, ctx) => {
+        return res(
+          ctx.json({
+            page: 1,
+            total_pages: 6,
+            total_results: 108,
+            results: [],
+          }),
+        );
+      }),
+    );
+    const { getByText, getByLabelText, findByText } = render(<SearchMovie />);
+    const input = getByLabelText(/title/i);
 
-// TODO: Refactor
-test('Should display no results message when API returns no matches', async () => {
-  server.use(
-    rest.get('https://api.themoviedb.org/3/search/movie', (req, res, ctx) => {
-      return res(
-        ctx.json({
-          page: 1,
-          total_pages: 6,
-          total_results: 108,
-          results: [],
-        }),
-      );
-    }),
-  );
-  const { getByText, getByLabelText, findByText } = render(<SearchMovie />);
-  const input = getByLabelText(/title/i);
+    userEvent.type(input, 'sasasa');
+    userEvent.click(getByText(/find/i));
+    expect(
+      await findByText('No results found. Please try again.'),
+    ).toBeInTheDocument();
+  });
 
-  userEvent.type(input, 'sasasa');
-  userEvent.click(getByText(/find/i));
-  expect(
-    await findByText('No results found. Please try again.'),
-  ).toBeInTheDocument();
-});
+  it('Should display add movie modal when user selects movie from dropdown', async () => {
+    const { getByText, getByLabelText, findByText, findByLabelText } = render(
+      <SearchMovie />,
+    );
+    const input = getByLabelText(/title/i);
+    userEvent.type(input, 'godzilla');
+    userEvent.click(getByText(/find/i));
 
-test('Should display add movie modal when user selects movie from dropdown', async () => {
-  const { getByText, getByLabelText, findByText, findByLabelText } = render(
-    <SearchMovie />,
-  );
-  const input = getByLabelText(/title/i);
-  userEvent.type(input, 'godzilla');
-  userEvent.click(getByText(/find/i));
+    const movie = await findByText('Godzilla vs. Kong');
+    expect(movie).toBeInTheDocument();
 
-  const movie = await findByText('Godzilla vs. Kong');
-  expect(movie).toBeInTheDocument();
+    userEvent.click(movie);
 
-  userEvent.click(movie);
-
-  expect(await findByText('I watched...')).toBeInTheDocument();
-  expect(await findByLabelText('Date watched')).toBeInTheDocument();
-  expect(await findByLabelText('Review')).toBeInTheDocument();
-  expect(await findByLabelText('Rating')).toBeInTheDocument();
-  expect(await findByLabelText('Like')).toBeInTheDocument();
+    expect(await findByText('I watched...')).toBeInTheDocument();
+    expect(await findByLabelText('Date watched')).toBeInTheDocument();
+    expect(await findByLabelText('Review')).toBeInTheDocument();
+    expect(await findByLabelText('Rating')).toBeInTheDocument();
+    expect(await findByLabelText('Like')).toBeInTheDocument();
+  });
 });

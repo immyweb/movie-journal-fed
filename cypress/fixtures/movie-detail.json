@@ -1,10 +1,13 @@
 {
-  "title": "Godzilla vs. Kong",
-  "id": 399566,
-  "dateWatched": "2021-04-01",
-  "posterImg": "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-  "review": "Mindless mayhem",
-  "releaseDate": "2021-03-24",
-  "rating": 7,
-  "like": false
+  "movie": {
+    "_id": "61659f3b02f54c3f9ab188f1",
+    "title": "Hereditary",
+    "theMovieDbId": 493922,
+    "dateWatched": "2021-02-10",
+    "posterImg": "/lHV8HHlhwNup2VbpiACtlKzaGIQ.jpg",
+    "review": "A disturbing movie",
+    "releaseDate": "2021-03-24",
+    "rating": 8,
+    "like": true
+  }
 }

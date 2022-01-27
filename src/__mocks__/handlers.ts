@@ -23,6 +23,19 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(movieDetailResponse));
   }),
 
+  // Edit movie
+  rest.put('http://localhost:8000/api/edit-movie/:movieId', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(moviesListResponse));
+  }),
+
+  // Delete movie
+  rest.delete(
+    'http://localhost:8000/api/delete-movie/:movieId',
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(moviesListResponse));
+    },
+  ),
+
   // Search movies
   rest.get('https://api.themoviedb.org/3/search/movie', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(movieDbSearchMovieResponse));

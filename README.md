@@ -1,6 +1,6 @@
 # Movie Journal Web Front-End
 
-Movie Journal web App built using React and Typescript. Uses a custom setup (no framework).
+Movie Journal Single Page App (SPA) built using React and Typescript. Uses a custom setup (no framework).
 Works in conjunction with the Movie Journal REST API (https://github.com/immyweb/movie-journal-api).
 
 ## Requirements

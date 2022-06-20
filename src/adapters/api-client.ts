@@ -1,4 +1,5 @@
 import { IMovieListItem } from '../types/types';
+import Config from '../../config';
 
 type ApiRequest = {
   method: string;
@@ -11,7 +12,7 @@ export function client<TResponse>(
 ): Promise<TResponse> {
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${process.env.TOKEN}`,
+    Authorization: `Bearer ${Config.TOKEN}`,
   };
 
   const config = {

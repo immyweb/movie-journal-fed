@@ -1,6 +1,22 @@
 # Movie Journal Web Front-End
 
-React/Typescript front-end project for a Movie Journal web app.
+Movie Journal web App built using React and Typescript. Uses a custom setup (no framework).
+Works in conjunction with the Movie Journal REST API (https://github.com/immyweb/movie-journal-api).
+
+## Requirements
+
+- Use a database (mongoDB)
+- Perform CRUD operations
+- Authentication and Authorisation
+- Full tested
+- Accessible
+
+## Tech
+- React
+- Typescript
+- Webpack
+- Cypress
+- Jest
 
 ### Commands
 
@@ -12,6 +28,6 @@ Run Unit tests:
 
 `npm run test`
 
-Integration / E2E tests (locally):
+Integration / E2E tests:
 
 `test:e2e:dev`

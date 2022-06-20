@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "webpack --config webpack.prod.config.ts",
+    "build:serve": "http-server ./build",
     "dev": "npm-run-all --parallel start",
     "start": "webpack serve --config webpack.dev.config.ts",
     "test": "jest",
@@ -20,8 +21,6 @@
     "validate": "npm-run-all --parallel check-types check-format lint test test:e2e:run"
   },
   "dependencies": {
-    "axe-core": "^4.3.5",
-    "cypress-axe": "^0.14.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.0"
@@ -37,7 +36,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.5.0",
-    "@types/dotenv-webpack": "^7.0.3",
     "@types/fork-ts-checker-webpack-plugin": "^0.4.5",
     "@types/jest": "^26.0.24",
     "@types/mini-css-extract-plugin": "^1.2.2",
@@ -48,11 +46,12 @@
     "@types/webpack-dev-server": "^4.3.1",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
+    "axe-core": "^4.4.1",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.0",
     "cypress": "^9.3.1",
-    "dotenv-webpack": "^7.0.3",
+    "cypress-axe": "^0.14.0",
     "eslint": "^7.20.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.26.1",
@@ -70,6 +69,7 @@
     "msw": "^0.35.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
+    "process": "^0.11.10",
     "start-server-and-test": "^1.14.0",
     "style-loader": "^3.3.1",
     "ts-node": "^10.4.0",
@@ -85,9 +85,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix"
-    ],
+    "*.js": ["eslint --fix"],
     "*.+(js|json|ts|tsx|css|html|md)": [
       "prettier",
       "jest --findRelatedTests",
@@ -95,16 +93,12 @@
     ]
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest-setup.ts"
-    ],
+    "setupFilesAfterEnv": ["<rootDir>/jest-setup.ts"],
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif)$": "<rootDir>/src/__mocks__/fileMock.ts"
     },
-    "collectCoverageFrom": [
-      "**/src/**/*.{ts,tsx,js}"
-    ],
+    "collectCoverageFrom": ["**/src/**/*.{ts,tsx,js}"],
     "resetMocks": true,
     "testEnvironment": "jsdom"
   },

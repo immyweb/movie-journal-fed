@@ -47,6 +47,9 @@ const config: webpack.Configuration = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
     }),

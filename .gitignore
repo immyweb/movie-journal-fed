@@ -6,6 +6,9 @@
 /cypress/videos
 /cypress/screenshots
 
+# keys
+config.ts
+
 # production
 /build
 

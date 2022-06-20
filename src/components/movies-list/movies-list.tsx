@@ -46,6 +46,8 @@ const MoviesList = (): JSX.Element => {
               src={`${requests.imgUrl}${posterImg}`}
               alt={title}
               className={styles.poster}
+              width="168"
+              height="252"
             />
           </Link>
           <h3 className={styles.movieTitle}>{title}</h3>

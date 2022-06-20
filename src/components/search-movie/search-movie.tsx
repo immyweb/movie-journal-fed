@@ -85,12 +85,22 @@ const SearchMovie = (): JSX.Element => {
           <button className={styles.submit}>Find</button>
         </form>
         {results.length > 0 && title.length > 0 && (
-          <ul className={styles.dropdown} data-testid="search-results">
+          <ul
+            className={styles.dropdown}
+            role="region"
+            aria-live="polite"
+            data-testid="search-results"
+          >
             {renderResults(results)}
           </ul>
         )}
         {noResult && (
-          <p className={styles.noResult} data-testid="no-results">
+          <p
+            className={styles.noResult}
+            role="region"
+            aria-live="polite"
+            data-testid="no-results"
+          >
             No results found. Please try again.
           </p>
         )}
